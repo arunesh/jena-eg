@@ -32,14 +32,22 @@ public class JenaTutorial {
             Resource res = stmt.getSubject();
             Property predicate = stmt.getPredicate();
             RDFNode rdfNode = stmt.getObject();
-            System.out.print("Resource: " + res.toString());
-            System.out.print("Property: " + predicate.toString());
+            System.out.print("NEW STATEMENT: ");
+            System.out.print("FROM Resource: " + res.toString());
+            System.out.print(" WITH Property: " + predicate.toString());
             if (rdfNode instanceof Resource) {
-                System.out.print (" Object resource: " + rdfNode.toString());
+                System.out.print (" TO Object resource: " + rdfNode.toString());
             } else {
-                System.out.print( "Literal resource: " + rdfNode.toString());
+                System.out.print( " TO Literal resource: " + rdfNode.toString());
             }
-            System.out.println(".");
+            System.out.println("  END STATEMENT.");
         }
+
+        System.out.println("RDF Dump.");
+        model.write(System.out);
+        System.out.println("XML/ABBREV DUMP");
+        model.write(System.out, "RDF/XML-ABBREV");
+        System.out.println("N-TRIPLES");
+        model.write(System.out, "N-TRIPLES");
     }
 }

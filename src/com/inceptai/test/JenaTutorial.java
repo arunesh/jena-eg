@@ -1,9 +1,11 @@
 package com.inceptai.test;
 
 import org.apache.jena.rdf.model.*;
+import org.apache.jena.util.FileManager;
 import org.apache.jena.vocabulary.*;
 
 import javax.swing.plaf.nimbus.State;
+import java.io.InputStream;
 
 public class JenaTutorial {
     public static String personURI = "http://sanmateo/jack_britt";
@@ -49,5 +51,20 @@ public class JenaTutorial {
         model.write(System.out, "RDF/XML-ABBREV");
         System.out.println("N-TRIPLES");
         model.write(System.out, "N-TRIPLES");
+        readFromFile("vc-db-1.rdf");
+    }
+
+
+    private static Model readFromFile(String filename) {
+        Model model = ModelFactory.createDefaultModel();
+
+        InputStream in = FileManager.get().open(filename);
+        if (in == null) {
+            throw new IllegalArgumentException("File " + filename + " not found.");
+        }
+        model.read(in, null);
+        System.out.println("Dumping model read from file: " + filename);
+        model.write(System.out);
+        return model;
     }
 }
